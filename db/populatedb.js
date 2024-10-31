@@ -9,7 +9,22 @@ const SQL = `CREATE TABLE IF NOT EXISTS users(
     name VARCHAR ( 255 ) NOT NULL,
     password_hash VARCHAR ( 255 ) NOT NULL,
     email VARCHAR ( 255 ) NOT NULL UNIQUE
-);`
+);
+
+CREATE TABLE IF NOT EXISTS folders(
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR ( 255 ) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS files(
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR ( 255 ) NOT NULL,
+    path VARCHAR ( 400 ) NOT NULL,
+    date_added TIMESTAMP NOT NULL,
+    size INTEGER,
+    folder_id INTEGER REFERENCES folders(id)
+);
+`;
 
 
 async function main(){
