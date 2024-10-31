@@ -6,8 +6,37 @@
     <title>File Uploader</title>
 </head>
 <body>
+    <%- include("navbar", { user: user }); %>
     <% if (user){%>
-        <h1>You are logged in</h1>
+        <h3>there will be a list of files here soon</h3>
+        <% if (files){ %>
+            <% files.forEach((file) => { %>
+                <table>
+                    <tr>
+                    <%= file.name %>
+                    <%= file.date_added %>
+                    <%= file.size %>
+                    <tr>
+                </table> 
+            <% })%>
+        <% } %>
+	    <button>Add Folder</button>
+        <form action="/folders-files/add-folder" method="post">
+            <label for="new-folder">Name:</label>
+            <input id="new-folder" name="newFolder" type="text" />
+            <button type="submit">Upload</button>
+        </form> 
+	    <button>Add File</button> 
+        <form action="/folders-files/upload-file" method="post" enctype="multipart/form-data">
+            <select name="selectedFolder">
+                <option value="Uploads" selected>Uploads</option>
+                <% folders.forEach((folder) => { %>
+                <option value="<%= folder.name %>"> <%= folder.name %> </option>
+                <% })%>
+            </select>
+            <input type="file" name="selectedFile" />
+            <button type="submit">Upload</button>
+        </form>  
     <% } else {%>
     <h1>Sign In</h1>
     <form action="/sign-in" method="post">
