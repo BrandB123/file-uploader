@@ -8,7 +8,7 @@
 <body>
     <%- include("navbar", { user: user }); %>
     <% if (user){%>
-        <h3>there will be a list of files here soon</h3>
+        <h3>Files</h3>
         <% if (files){ %>
             <% files.forEach((file) => { %>
                 <table>

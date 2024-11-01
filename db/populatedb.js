@@ -13,7 +13,8 @@ const SQL = `CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS folders(
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR ( 255 ) NOT NULL
+    name VARCHAR ( 255 ) NOT NULL,
+    user_id INTEGER REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS files(
@@ -22,7 +23,8 @@ CREATE TABLE IF NOT EXISTS files(
     path VARCHAR ( 400 ) NOT NULL,
     date_added TIMESTAMP NOT NULL,
     size INTEGER,
-    folder_id INTEGER REFERENCES folders(id)
+    folder_id INTEGER REFERENCES folders(id),
+    user_id INTEGER REFERENCES users(id)
 );
 `;
 
