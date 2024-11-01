@@ -24,14 +24,16 @@
         <form action="/folders-files/add-folder" method="post">
             <label for="new-folder">Name:</label>
             <input id="new-folder" name="newFolder" type="text" />
-            <button type="submit">Upload</button>
+            <button type="submit">Add</button>
         </form> 
 	    <button>Add File</button> 
         <form action="/folders-files/upload-file" method="post" enctype="multipart/form-data">
             <select name="selectedFolder">
                 <option value="Uploads" selected>Uploads</option>
                 <% folders.forEach((folder) => { %>
-                <option value="<%= folder.name %>"> <%= folder.name %> </option>
+                    <% if (folder.name !== "Uploads") {%>
+                        <option value="<%= folder.name %>"> <%= folder.name %> </option>
+                    <% } %>
                 <% })%>
             </select>
             <input type="file" name="selectedFile" />

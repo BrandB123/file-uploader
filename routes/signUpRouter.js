@@ -5,7 +5,11 @@ const db = require('../db/queries')
 const signUpRouter = Router();
 
 signUpRouter.get("/", async (req, res) => {
-    res.render("sign-up");
+    if (req.user){
+        res.redirect("/")
+    } else {
+        res.render("sign-up");
+    }
 })
 
 signUpRouter.post("/", async (req, res, next) => {

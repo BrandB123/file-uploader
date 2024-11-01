@@ -14,7 +14,6 @@ indexRouter.get("/", async (req, res, next) => {
         });
         db.addFolder("Uploads", req.user.id)
         const files = await db.getFiles(req.user.id);
-        // console.log(files)
         const folders = await db.getFolders(req.user.id);
         res.render("index", { user: req.user, files: files, folders: folders});
     } else {

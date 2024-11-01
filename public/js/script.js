@@ -1,5 +1,7 @@
-// console.log("Hello world");
+console.log("Hello world");
 
+
+// FOR /sign-up route
 function dontAddUser(event){
     passwordConfirmationInput.style = "border-color: red;"
     event.preventDefault()

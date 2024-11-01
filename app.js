@@ -3,7 +3,6 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
-const fs = require('fs');
 const pool = require('./db/pool')
 const indexRouter = require('./routes/indexRouter');
 const signUpRouter = require('./routes/signUpRouter')
@@ -12,15 +11,6 @@ const foldersFilesRouter = require('./routes/foldersFilesRouter')
 const PORT = process.env.PORT || 3000;
 
 app = express();
-app.use((req, res, next) => {
-    fs.mkdir("./uploads", { recursive: true}, (err) => {
-        if (err) {
-            console.error(err);
-
-        }
-    });
-    next();
-});
 
 app.use(session({ secret: "unsecureExample", resave: false, saveUninitialized: false }));
 app.use(passport.session());

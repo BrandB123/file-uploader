@@ -43,6 +43,30 @@ async function addFolder(name, userId) {
     }
 }
 
+async function updateFolder(oldName, newName, userId) {
+    try {
+        await pool.query(`
+            UPDATE folders
+            SET name = $1
+            WHERE name = $2 AND user_id = $3`,
+        [newName, oldName, userId])
+        console.log("Folder name updated in database.")
+    } catch (err){
+        console.error("Error updating the folder :", err)
+    }
+}
+
+async function deleteFolder(name, userId) {
+    try {
+        await pool.query(`
+            DELETE FROM folders
+            WHERE name = $1 AND user_id = $2`,
+        [name, userId])
+    } catch(err){
+        console.error("Error removing folder: ", err)
+    }
+}
+
 async function getFiles(userId) {
     try{
         const { rows } = await pool.query(`
@@ -67,4 +91,4 @@ async function addFile(name, path, dateAdded, size, folderId, userId){
     }
 }
 
-module.exports = { addUser, getFolders , getFolderId, addFolder, getFiles, addFile }
+module.exports = { addUser, getFolders , getFolderId, addFolder, updateFolder, deleteFolder, getFiles, addFile }
