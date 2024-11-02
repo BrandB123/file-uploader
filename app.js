@@ -3,6 +3,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 const pool = require('./db/pool')
 const indexRouter = require('./routes/indexRouter');
 const signUpRouter = require('./routes/signUpRouter')
@@ -15,7 +16,19 @@ app = express();
 app.use(session({ secret: "unsecureExample", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-
+app.use((req, res, next) => {
+    fs.mkdir("./users", { recursive: true }, (err) => {
+        if (err) {
+            console.error(err)
+        }
+    })
+    fs.mkdir("./temp", { recursive: true }, (err) => {
+        if (err) {
+            console.error(err)
+        }
+    })
+    next()
+})
 
 passport.use(
     new LocalStrategy(async (username, password, done) => {

@@ -5,14 +5,18 @@ const db = require('../db/queries');
 
 const indexRouter = Router()
 
+
 indexRouter.get("/", async (req, res, next) => {
     if (req.user){
-        fs.mkdir("./uploads", { recursive: true}, (err) => {
+        fs.mkdir(`./users/${req.user.id}/Uploads`, { recursive: true}, (err) => {
             if (err) {
                 console.error(err);
             }
         });
-        db.addFolder("Uploads", req.user.id)
+        const dbfolders = await db.getFolders(req.user.id)
+        if (!dbfolders.length){
+            db.addFolder("Uploads", req.user.id)
+        }
         const files = await db.getFiles(req.user.id);
         const folders = await db.getFolders(req.user.id);
         res.render("index", { user: req.user, files: files, folders: folders});

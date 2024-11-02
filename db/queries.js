@@ -28,7 +28,7 @@ async function getFolderId(name, userId){
         SELECT id FROM folders 
         WHERE name = $1 AND user_id = $2`, 
         [name, userId]);
-    return rows;
+    return rows[0].id;
 }
 
 async function addFolder(name, userId) {
@@ -62,6 +62,7 @@ async function deleteFolder(name, userId) {
             DELETE FROM folders
             WHERE name = $1 AND user_id = $2`,
         [name, userId])
+        console.log("Folder deleted from the database")
     } catch(err){
         console.error("Error removing folder: ", err)
     }
@@ -91,4 +92,17 @@ async function addFile(name, path, dateAdded, size, folderId, userId){
     }
 }
 
-module.exports = { addUser, getFolders , getFolderId, addFolder, updateFolder, deleteFolder, getFiles, addFile }
+async function deleteFiles(userId, folderId){
+    try {
+        await pool.query(`
+            DELETE FROM files
+            WHERE user_id = $1 AND folder_id = $2`,
+            [userId, folderId]
+        )
+        console.log("Files deleted from the database")
+    } catch(err){
+        console.error("Error removing files: ", err)
+    }
+}
+
+module.exports = { addUser, getFolders , getFolderId, addFolder, updateFolder, deleteFolder, getFiles, addFile, deleteFiles }
