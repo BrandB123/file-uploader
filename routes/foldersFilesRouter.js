@@ -29,6 +29,13 @@ foldersFilesRouter.post("/upload-file",
     }
 )
 
+foldersFilesRouter.get("/files/:fileName", authenticateUser, async (req, res, next) => {
+    console.log(req.params.fileName)
+    const file = await db.getFile(req.params.fileName, req.user.id)
+    console.log(file)
+    res.render("file", { user:req.user, file: file[0]})
+})
+
 // FOLDER INTERACTIONS
 foldersFilesRouter.get("/folders", authenticateUser, async (req, res, next) => {
     const folders = await db.getFolders(req.user.id);

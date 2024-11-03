@@ -13,7 +13,7 @@
             <% files.forEach((file) => { %>
                 <table>
                     <tr>
-                    <%= file.name %>
+                    <a href="/folders-files/files/<%= file.name %>"><%= file.name %></a>
                     <%= file.date_added %>
                     <%= file.size %>
                     <tr>

@@ -80,6 +80,18 @@ async function getFiles(userId) {
     }
 }
 
+async function getFile(name, userId){
+    try{
+        const { rows } = await pool.query(`
+            SELECT * FROM files
+            WHERE name = $1 AND user_id = $2`,
+        [name, userId])
+        return rows;
+    } catch (err){
+        console.error("Error getting file: ", err)
+    }
+}
+
 async function addFile(name, path, dateAdded, size, folderId, userId){
     try{
         await pool.query(`
@@ -105,4 +117,4 @@ async function deleteFiles(userId, folderId){
     }
 }
 
-module.exports = { addUser, getFolders , getFolderId, addFolder, updateFolder, deleteFolder, getFiles, addFile, deleteFiles }
+module.exports = { addUser, getFolders , getFolderId, addFolder, updateFolder, deleteFolder, getFiles, getFile, addFile, deleteFiles }
