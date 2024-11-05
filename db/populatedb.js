@@ -24,7 +24,9 @@ CREATE TABLE IF NOT EXISTS files(
     date_added TIMESTAMP NOT NULL,
     size INTEGER,
     folder_id INTEGER REFERENCES folders(id),
-    user_id INTEGER REFERENCES users(id)
+    user_id INTEGER REFERENCES users(id),
+    share_id VARCHAR ( 255 ),
+    share_end_date DATE
 );
 `;
 

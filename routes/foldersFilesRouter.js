@@ -2,7 +2,8 @@ const { Router } = require('express');
 const fs = require('fs');
 const multer = require('multer');
 const authenticateUser = require('../controllers/authenticateUser')
-const db = require('../db/queries')
+const db = require('../db/queries');
+const bcrypt = require('bcryptjs')
 const temp = multer({ dest: 'temp/' });
 
 const foldersFilesRouter = Router();
@@ -30,10 +31,68 @@ foldersFilesRouter.post("/upload-file",
 )
 
 foldersFilesRouter.get("/files/:fileName", authenticateUser, async (req, res, next) => {
-    console.log(req.params.fileName)
     const file = await db.getFile(req.params.fileName, req.user.id)
-    console.log(file)
     res.render("file", { user:req.user, file: file[0]})
+})
+
+foldersFilesRouter.post("/files/delete", async (req, res, next) => {
+    const pathArray = req.body.deleteFile.split("/")
+    fs.rm(`${req.body.deleteFile}`, { recursive: true }, (err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+    await db.deleteFile(pathArray[3], req.user.id);
+    res.redirect("/");
+})
+
+foldersFilesRouter.post("/files/download", async (req, res, next) => {
+    res.download(`${req.body.downloadFile}`, (err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+})
+
+foldersFilesRouter.post("/files/share", async (req, res, next) => {
+    const pathArray = req.body.shareFile.split("/")
+    bcrypt.hash(pathArray[3], 3, async (err, hashedName) => {
+        if (err) {
+            return next(err);
+        }
+        try {
+            const shareId = hashedName.replaceAll("/", "-")
+            db.shareFile(pathArray[3], req.user.id, shareId, req.body.shareExp)
+        } catch (err) {
+            return next(err)
+        }
+        res.redirect("/");
+    });
+})
+
+
+foldersFilesRouter.get("/shared/:userId/:sharedId", async (req, res, next) => {
+    const file = await db.getSharedFile(req.params.sharedId, req.params.userId)
+    const today = new Date();
+    let expiration;
+    if (file[0]){
+        expiration = new Date(file[0].share_end_date)
+    }
+    if (!file[0]){
+        res.send("No file found")
+    } else if (expiration < today){
+        res.send("File no longer available")
+    } else {
+        res.render("sharedFile", { file: file[0]})
+    }
+})
+
+foldersFilesRouter.post("/shared/download", async (req, res, next) => {
+    res.download(`${req.body.downloadSharedFile}`, (err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
 })
 
 // FOLDER INTERACTIONS

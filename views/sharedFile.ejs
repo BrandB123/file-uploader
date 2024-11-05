@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Details</title>
+</head>
+<body>
+    <h2>FileUpload</h2>
+    <a href="/sign-up">Create Account</a>
+    <p><%= file.name%></p>
+    <p><%= file.date_added%></p>
+
+    <form action="/folders-files/shared/download" method="post">
+        <input type="text" name="downloadSharedFile" value="<%= file.path %>" 
+               style="visibility: hidden;" />
+        <button type="submit">Download</button>
+    </form>
+</body>
+</html>

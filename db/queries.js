@@ -92,6 +92,18 @@ async function getFile(name, userId){
     }
 }
 
+async function getSharedFile(shareId, userId){
+    try {
+        const { rows } = await pool.query(`
+            SELECT * FROM files
+            WHERE share_id = $1 AND user_id = $2`,
+        [shareId, userId])
+        return rows;
+    } catch (err){
+        console.error("Error getting file: ", err)
+    }
+}
+
 async function addFile(name, path, dateAdded, size, folderId, userId){
     try{
         await pool.query(`
@@ -117,4 +129,43 @@ async function deleteFiles(userId, folderId){
     }
 }
 
-module.exports = { addUser, getFolders , getFolderId, addFolder, updateFolder, deleteFolder, getFiles, getFile, addFile, deleteFiles }
+async function deleteFile(name, userId){
+    try {
+	    await pool.query(`
+	        DELETE FROM files
+	        WHERE name = $1 AND user_id = $2`, 
+	        [name, userId])
+	    console.log("File deleted from database.");
+    } catch (err) {
+	    console.error("Error removing file: ", err)
+    }
+}
+
+async function shareFile(name, userId, shareId, shareExp){
+    try {
+        await pool.query(`
+            UPDATE files
+            SET share_id = $1, share_end_date = $2
+            WHERE name = $3 and user_id = $4`, 
+            [shareId, shareExp, name, userId])
+        console.log("Link approved for sharing");
+    } catch (err) {
+	    console.error("Error making file shareable: ", err)
+    }
+}
+
+module.exports = { 
+    addUser, 
+    getFolders , 
+    getFolderId, 
+    addFolder, 
+    updateFolder, 
+    deleteFolder, 
+    getFiles, 
+    getFile, 
+    getSharedFile, 
+    addFile, 
+    deleteFiles, 
+    deleteFile, 
+    shareFile 
+}
