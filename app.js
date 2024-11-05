@@ -78,6 +78,12 @@ app.use(express.static('public'));
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/folders-files", foldersFilesRouter);
+app.use((err, req, res, next) => {
+    if (err) {
+        console.error("ERROR: ", err)
+        res.send("Error: Pleaese try again later")
+    }
+})
 
 
 app.listen(PORT, console.log(`File Uploader listening on port ${PORT}`))
