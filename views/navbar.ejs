@@ -1,15 +1,15 @@
-<div>
-    <h2>FileUpload</h2>
+<div class="navbar">
+    <h2 id="logo">FileUpload</h2>
     <% if (user) { %>
-        <nav>
-        <a href="/">Files</a>
-        <a href="/folders-files/folders">Folders</a>
-    <a href="/sign-out">Sign Out</a>
-    </nav>
+        <nav class="nav-links">
+            <a href="/">Files</a>
+            <a href="/folders-files/folders">Folders</a>
+            <a href="/sign-out">Sign Out</a>
+        </nav>
     <% } else { %>
-        <nav>
-        <a href="/">Sign In</a>
-        <a href="/sign-up">Create Account</a>
-    </nav>
-    <% } %>
+        <nav class="nav-links">
+            <a href="/">Sign In</a>
+            <a href="/sign-up">Create Account</a>
+        </nav>
+    <% } %> 
 </div>

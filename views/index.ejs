@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css"></link>
     <title>File Uploader</title>
 </head>
 <body>
@@ -39,14 +40,23 @@
             <button type="submit">Upload</button>
         </form>  
     <% } else {%>
-    <h1>Sign In</h1>
-    <form action="/sign-in" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="username">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-        <button type="submit">Sign In</button>
-    </form>
+    <div id="sign-in-form-container">
+        <h1 id="sign-in-form-header">Sign In</h1>
+        <form action="/sign-in" method="post" id="sign-in-form">
+
+            <div class="email">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="username">
+            </div>
+
+            <div class="password">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <button type="submit" id="sign-in-button">Sign In</button>
+        </form>
+    </div>
     <% }%>
 </body>
 </html>

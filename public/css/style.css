@@ -1,3 +1,166 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background-color: #fff; */
+    background-image: linear-gradient(90deg, #c4c4c4, #fff, #c4c4c4);
+}
+
+/* *** NAVBAR *** */
+.navbar {
+    display: flex;
+    padding-left: 2%;
+    background-color: rgb(28, 84, 240);
+    color: white;
+    padding: 1% 2%;
+}
+
+.navbar #logo {
+    display: flex;
+    flex: auto;
+    font-size: xx-large;
+}
+
+/* .navbar nav {
+    display: flex;
+    flex: auto;
+} */
+
+.navbar .nav-links {
+    display: flex;
+    flex: auto;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5%;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: white;
+}
+
+
+/* *** SIGN UP FORM *** */
+
+#sign-up-form-container {
+    display: grid;
+    background-color: white;
+    border: #888 solid 1px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 3% 30%
+}
+
+#sign-up-form-header {
+    margin: 10px auto 20px;
+}
+
+
+#sign-up-form {
+    display: grid;
+    padding: 20px;
+    gap: 10px;
+    grid-template-areas: 
+        "first_name last_name"
+        "email password"
+        "password_confirmation password_confirmation"
+        "add_user_button add_user_button"
+    ;
+}
+
+#sign-up-form input {
+    width: 90%;
+    margin-left: 5%;
+    font-size: 14px;
+    padding: 5px 5px 5px 10px;
+    border: black solid 1px;
+    border-radius: 5px;
+}
+
+.first-name {
+    grid-area: first_name;
+}
+
+.last-name {
+    grid-area: last_name;
+}
+
+.email {
+    grid-area: email;
+}
+
+.password {
+    grid-area: password;
+}
+
+.password-confirmation {
+    grid-area: password_confirmation;
+}
+
+#add-user-button {
+    grid-area: add_user_button;
+    font-size: 18px;
+    width: 50%;
+    margin: 10px auto 0;
+    padding: 3px;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+
+/* *** SIGN IN FORM *** */
+
+#sign-in-form-container {
+    display: grid;
+    background-color: white;
+    border: #888 solid 1px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 3% 30%
+}
+
+#sign-in-form-header {
+    margin: 10px auto 20px;
+}
+
+
+#sign-in-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    font-size: 20px;
+}
+
+#sign-in-form .email {
+    flex: auto;
+}
+
+#sign-in-form .password {
+    flex: auto;
+}
+
+#sign-in-form input {
+    width: 90%;
+    margin-left: 5%;
+    font-size: 14px;
+    padding: 5px 5px 5px 10px;
+    border: black solid 1px;
+    border-radius: 5px;
+}
+
+#sign-in-button {
+    flex: auto;
+    font-size: 20px;
+    width: 50%;
+    margin: 10px auto 0;
+    padding: 3px;
+    border-radius: 5px;
+    border-width: 1px;
 }
