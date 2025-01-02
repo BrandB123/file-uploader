@@ -24,11 +24,6 @@ body {
     font-size: xx-large;
 }
 
-/* .navbar nav {
-    display: flex;
-    flex: auto;
-} */
-
 .navbar .nav-links {
     display: flex;
     flex: auto;
@@ -163,4 +158,126 @@ a:visited {
     padding: 3px;
     border-radius: 5px;
     border-width: 1px;
+}
+
+/* *** HOME PAGE *** */
+#files-container {
+    /* display: grid; */
+    background-color: white;
+    border: #888 solid 1px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px 3%;
+}
+
+#files-container-header {
+    margin: 10px 20px;
+    font-size: x-large;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    font-weight: 400;
+    color: #888;
+    text-align: left;
+    padding-left: 50px;
+}
+
+td {
+    padding: 10px 10px 10px 30px;
+}
+
+td a, td a:hover, td a:active, td a:visited{
+    color: black;
+}
+
+
+tr:nth-child(even){
+    background-color: #fafafa;
+}
+
+#open-form-button-container {
+    margin: 10px auto 10px 75%;
+}
+
+.open-form-button {
+    padding: 5px;
+    margin-left: 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 10vw;
+    background-color: #ffffff00;
+}
+
+.open-form-button:hover {
+    background-color: #fff;
+    border-width: 1.5px;
+}
+
+#add-folder-form, #add-file-form {
+    display: grid;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 35%;
+    gap: 10px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 0 300px 500px #0000007f;    
+}
+
+.add-folder-form-container {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+}
+
+#add-folder-form {
+    margin: 0 auto;
+}
+
+#add-folder-form input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.add-file-form-container {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+}
+
+#add-file-form {
+    margin: 0 auto;
+}
+
+.add-form-close{
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    border: none;
+    background-color: #ffffff00;
+}
+
+.add-form-close:hover {
+    font-weight: 700;
+}
+
+#add-folder-submit, #add-file-submit {
+    width: 30%;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+#add-folder-submit:hover, #add-file-submit:hover {
+    border: 1.5px solid black;
 }

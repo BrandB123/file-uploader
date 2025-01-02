@@ -9,36 +9,65 @@
 <body>
     <%- include("navbar", { user: user }); %>
     <% if (user){%>
-        <h3>Files</h3>
-        <% if (files){ %>
-            <% files.forEach((file) => { %>
+
+        <div id="open-form-button-container">
+            <button class="open-form-button" id="add-folder-button">Add Folder</button>
+            <button class="open-form-button" id="add-file-button">Add File</button>
+        </div>
+
+        <div id="files-container">
+            <h3 id="files-container-header">Files</h3>
+            <% if (files){ %>
                 <table>
                     <tr>
-                    <a href="/folders-files/files/<%= file.name %>"><%= file.name %></a>
-                    <%= file.date_added %>
-                    <tr>
-                </table> 
-            <% })%>
-        <% } %>
-	    <button>Add Folder</button>
-        <form action="/folders-files/add-folder" method="post">
-            <label for="new-folder">Name:</label>
-            <input id="new-folder" name="newFolder" type="text" />
-            <button type="submit">Add</button>
-        </form> 
-	    <button>Add File</button> 
-        <form action="/folders-files/upload-file" method="post" enctype="multipart/form-data">
-            <select name="selectedFolder">
-                <option value="Uploads" selected>Uploads</option>
-                <% folders.forEach((folder) => { %>
-                    <% if (folder.name !== "Uploads") {%>
-                        <option value="<%= folder.name %>"> <%= folder.name %> </option>
-                    <% } %>
+                        <th>Name</th>
+                        <th>Folder</th>
+                        <th>Date Added</th>
+                    </tr>
+                <% files.forEach((file) => { %>
+                        <tr>
+                            <td>
+                                <a href="/folders-files/files/<%= file.name %>"><%= file.name %></a>
+                            </td>
+                            <td>
+                                folder name
+                            </td>
+                            <td>
+                                <%= file.date_added %>
+                            </td>
+                        </tr>
                 <% })%>
-            </select>
-            <input type="file" name="selectedFile" />
-            <button type="submit">Upload</button>
-        </form>  
+                </table>
+            <% } %>
+        </div>
+
+        <!-- ADD FOLDER FORM -->
+        <div class="add-folder-form-container">
+            <form action="/folders-files/add-folder" method="post" id="add-folder-form">
+                <label for="new-folder">New Folder Name:</label>
+                <input id="new-folder" name="newFolder" type="text" />
+                <button type="submit" id="add-folder-submit">Add</button>
+                <button type="reset" class="add-form-close" id="add-folder-close">x</button>
+            </form>
+        </div> 
+
+        <!-- ADD FILE FORM -->
+        <div class="add-file-form-container">
+            <form action="/folders-files/upload-file" method="post" enctype="multipart/form-data" id="add-file-form">
+                <label for="selectedFolder">Folder: </label>
+                <select id="selectedFolder" name="selectedFolder">
+                    <option value="Uploads" selected>Uploads</option>
+                    <% folders.forEach((folder) => { %>
+                        <% if (folder.name !== "Uploads") {%>
+                            <option value="<%= folder.name %>"> <%= folder.name %> </option>
+                        <% } %>
+                    <% })%>
+                </select>
+                <input type="file" name="selectedFile" />
+                <button type="submit" id="add-file-submit">Upload</button>
+                <button type="reset" class="add-form-close" id="add-file-close">x</button>
+            </form>
+        </div>  
     <% } else {%>
     <div id="sign-in-form-container">
         <h1 id="sign-in-form-header">Sign In</h1>
@@ -58,5 +87,6 @@
         </form>
     </div>
     <% }%>
+    <script src="/js/index.js"></script>
 </body>
 </html>
