@@ -102,7 +102,7 @@ foldersFilesRouter.get("/folders", authenticateUser, async (req, res, next) => {
 })
 
 foldersFilesRouter.post("/add-folder", async (req, res, next) => {
-    fs.mkdir(`./users/${req.user.id}/${req.body.newFolder}`, { recursive: true}, (err) => {
+    fs.mkdir(`./users/${req.user.id}/${req.body.newFolder.trim()}`, { recursive: true}, (err) => {
         if (err) {
             console.error(err);
         }

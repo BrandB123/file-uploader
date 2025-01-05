@@ -1,56 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Folders</title>
 </head>
+
 <body>
     <%- include("navbar", {user: user}); %>
-    <h2>Folders</h2>
-    <% folders.forEach((folder) => { %>
-        <% if (folder.name !== "Uploads") { %>
-            <div>
-                <p><%= folder.name %></p>
-                <button type="submit" class="folder-edit-button" data-folder-name="<%= folder.name %>">Edit</button>
-                <button type="submit" class="folder-delete-button" data-folder-name="<%= folder.name %>">Delete</button>
-            
-                <form action="/folders-files/update-folder" method="post">
-                    <input name="oldFolderName" type="text" style="visibility: hidden;"
-                    value="<%= folder.name %> "/>
-                    <input name="newFolderName" type="text" style="visibility: visible;"
-                        value="<%= folder.name %> " data-folder-name="<%= folder.name %>"/>
-                    <button type="submit" style="visibility: visible;">Update Name</button>
-                    <!--
-                     - set value of hidden input to the current name
-                     - double clicking the edit button makes the form input appear
-                     - altering the input updates the value
-                     - clicking outside of the field will programmatically 'click' the hidden button
-                       to submit the form
-                     - post route updates db
-                     - refresh page with res.redirect("/folders")
-                    -->
-                </form>
+    <div id="folders-container">
+        <h2 id="folders-container-header">Folders</h2>
 
-                <form action="/folders-files/delete-folder" method="post">
-                    <label for="delete-folder">Are you sure you want to delete this folder? All files in this folder will be deleted as well</label>
-                    <input type="text" id="delete-folder" name="deleteFolder" 
-                            value="<%= folder.name %>" style="visibility: hidden;">
-                    <button>Delete</button>
-                    <!--
-                     - set value of hidden input to the current name
-                     - clicking trash icon will open warning message
-                     - clicking delete will submit the form
-                     - post route deletes db
-                     - refresh page with res.redirect("/folders")
-                    -->
-                </form>
-            </div>
-        <% } %>
-        <% if (folders.length < 2) { %> 
-            <p>No editable folders currently. Add a folder from the files page to view it here.</p>
-        <%}%>
-    <% }) %>
-    <!-- <script src="/js/signUp.js"></script> -->
+        <% folders.forEach((folder) => { %>
+            <% if (folder.name !== "Uploads") { %>
+                <div class="folder-item folder-item-<%= folder.name %>">
+
+                    <p class="folder-name"><%= folder.name %></p>
+
+                    <button 
+                        type="button" 
+                        class="folder-edit-button <%= folder.name %>"  
+                    >
+                        Edit
+                    </button>
+
+                    <button 
+                        type="button" 
+                        class="folder-delete-button <%= folder.name %>" 
+                    >
+                        Delete
+                    </button>
+        
+                    <!-- UPDATE FOLDER FORM -->
+                    <form 
+                        action="/folders-files/update-folder" 
+                        method="post" 
+                        id="update-folder-form"
+                        class="update-folder-form-<%= folder.name %>"
+                    >
+
+                        <input 
+                            name="newFolderName" 
+                            type="text"
+                            class="folder-name-input new-folder-name-input-<%= folder.name %>"
+                            value="<%=folder.name%>" 
+                            data-folder-name="<%= folder.name %>"
+                        />
+
+                        <input 
+                            name="oldFolderName" 
+                            type="text" 
+                            style="visibility: hidden;"
+                            value="<%=folder.name%> "
+                        />
+
+                        <button 
+                            type="submit"
+                            class="folder-update-button update-folder-name-<%= folder.name %>" 
+                        >
+                            Update
+                        </button>
+
+                        <button
+                            type="button"
+                            class="folder-cancel-button cancel-folder-name-<%= folder.name %>"
+                        >
+                            Cancel
+                        </button>
+                    </form>
+
+                    <!-- DELETE FOLDER FORM -->
+                    <form 
+                        action="/folders-files/delete-folder" 
+                        method="post" 
+                        id="delete-folder-form"
+                        class="delete-folder-form-<%= folder.name %>"
+                    >
+                        <label 
+                            for="delete-folder"
+                            class="delete-form-label"
+                        >
+                            Are you sure you want to delete this folder? All files in this folder will be deleted as well.
+                        </label>
+
+                        <input 
+                            type="text" 
+                            id="delete-folder" 
+                            name="deleteFolder"
+                            value="<%= folder.name %>" 
+                            style="visibility: hidden; display: block;"
+                        >
+
+                        <div class="delete-form-button-container">
+                            <button
+                                type="submit"
+                                class="folder-confirm-delete-button"
+                            >
+                                Delete
+                            </button>
+                            <button
+                                type="button"
+                                class="folder-cancel-delete-button folder-cancel-delete-button-<%= folder.name %>"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            <% } %>
+            <% if (folders.length < 2) { %>
+                <p class="no-folders-message">No editable folders currently. Add a folder from the files page to view it here.</p>
+            <%}%>
+        <% }) %>
+    </div>
+    <script src="/js/folders.js"></script>
 </body>
 </html>

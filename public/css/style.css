@@ -124,7 +124,6 @@ a:visited {
     margin: 10px auto 20px;
 }
 
-
 #sign-in-form {
     display: flex;
     flex-direction: column;
@@ -160,9 +159,9 @@ a:visited {
     border-width: 1px;
 }
 
+
 /* *** HOME PAGE *** */
 #files-container {
-    /* display: grid; */
     background-color: white;
     border: #888 solid 1px;
     padding: 10px;
@@ -194,7 +193,6 @@ td {
 td a, td a:hover, td a:active, td a:visited{
     color: black;
 }
-
 
 tr:nth-child(even){
     background-color: #fafafa;
@@ -281,3 +279,150 @@ tr:nth-child(even){
 #add-folder-submit:hover, #add-file-submit:hover {
     border: 1.5px solid black;
 }
+
+
+/* *** FOLDERS PAGE *** */
+
+#folders-container {
+    background-color: white;
+    border: #888 solid 1px;
+    padding: 20px 30px 50px;
+    width: 50%;
+    border-radius: 10px;
+    margin: 15px auto;
+}
+
+#folders-container-header {
+    margin: 10px 20px 20px;
+    font-size: x-large;
+}
+
+.folder-item {
+    margin: 0 45px;
+    padding: 20px;
+    display: flex;
+    border-bottom: 1px solid darkgray;
+    gap: 20px;
+    position: relative;
+}
+
+.folder-name {
+    flex: auto;
+    align-self: center;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.folder-edit-button, .folder-delete-button {
+    flex: auto;
+    align-self: center;
+    padding: 5px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    max-width: 100px;
+    width: 100px;
+}
+
+.folder-edit-button {
+    margin-left: auto;
+}
+
+.folder-edit-button:hover {
+    border-width: 1.5px;
+}
+
+.folder-delete-button:hover {
+    border: 1.5px solid red;
+}
+
+#update-folder-form, #delete-folder-form {
+    visibility: hidden;
+    position: absolute;
+}
+
+#update-folder-form {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    top: 0;
+    left: 0;
+}
+
+.folder-name-input {
+    flex: auto;
+    font-weight: 600;
+    margin-left: 20px;
+    padding-left: 5px;
+}
+
+.folder-update-button, .folder-cancel-button {
+    flex: auto;
+    align-self: center;
+    padding: 5px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    max-width: 105px;
+    width: 105px;
+
+}
+
+.folder-update-button:hover, .folder-cancel-button:hover {
+    border-width: 1.5px;
+}
+
+.folder-update-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: -5px;
+}
+
+.folder-cancel-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
+#delete-folder-form {
+    position: fixed;
+    top: 50%;    
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 35%;
+    padding: 50px;
+    box-shadow: 0 0 300px 500px #0000007f;
+    
+}
+
+.delete-form-label {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.delete-form-button-container{
+    display: flex;
+    justify-content: center;
+    gap: min(20%, 150px);
+}
+
+.folder-confirm-delete-button, .folder-cancel-delete-button {
+    flex: auto;
+    padding: 5px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    max-width: 100px;
+    width: 100px;
+}
+
+.folder-confirm-delete-button:hover, .folder-cancel-delete-button:hover {
+    border-width: 1.5px;
+}
+
+.no-folders-message{
+    text-align: center;
+}
+
