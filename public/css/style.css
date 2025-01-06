@@ -363,7 +363,6 @@ tr:nth-child(even){
     border-radius: 5px;
     max-width: 105px;
     width: 105px;
-
 }
 
 .folder-update-button:hover, .folder-cancel-button:hover {
@@ -426,3 +425,119 @@ tr:nth-child(even){
     text-align: center;
 }
 
+
+/* *** FILES PAGE *** */
+.file-page-container {
+    margin: 50px auto;
+    padding: 30px;
+    width: 70%;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    position: relative;
+}
+
+.file-info-container {
+    padding: 35px 30px 20px;
+    display: flex;
+    gap: 40px;
+}
+
+
+
+.file-form-button-container {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.file-download-form, .open-share-form-button-container, .file-delete-form{
+    flex: auto;
+    width: 100px;
+    position: relative;
+}
+
+.file-download-form-button, .file-open-share-form-button, .file-delete-form-button{
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.file-download-form-button:hover, .file-open-share-form-button:hover, .file-delete-form-button:hover {
+    border: 1.5px solid black;
+}
+
+.file-share-form {
+    visibility: hidden;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 300px 500px #0000007f;
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 25%;
+    width: 50%;
+    padding: 50px;
+    display: grid;
+    grid-template: 1fr 1fr / 2% 48% 48%;
+    grid-template-areas: 
+        "hidden label expiration"
+        "button button button";
+    gap: 10px;
+}
+
+#hidden-share-input {
+    grid-area: hidden;
+}
+
+#share-label {
+    grid-area: label;
+    justify-self: end;
+    margin-right: 10px;
+}
+
+#file-share-expiration {
+    grid-area: expiration;
+    width: 150px;
+}
+
+#share-submit-button {
+    grid-area: button;
+    justify-self: center;
+    width: 100px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+#share-submit-button:hover {
+    border: 1.5px solid black;
+}
+
+#close-share-form-button {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+#close-share-form-button:hover {
+    font-weight: 600;
+}
+
+iframe {
+    height: 80vh;
+    width: 100%;
+}
+
+
+/* *** SHARED FILE PAGE *** */

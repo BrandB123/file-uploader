@@ -31,11 +31,12 @@ foldersFilesRouter.post("/upload-file",
 )
 
 foldersFilesRouter.get("/files/:fileName", authenticateUser, async (req, res, next) => {
-    const file = await db.getFile(req.params.fileName, req.user.id)
-    res.render("file", { user:req.user, file: file[0]})
+    const file = await db.getFile(req.params.fileName, req.user.id);
+    console.log(file);
+    res.render("file", { user:req.user, file: file[0]});
 })
 
-foldersFilesRouter.post("/files/delete", async (req, res, next) => {
+foldersFilesRouter.post("/files/delete", authenticateUser, async (req, res, next) => {
     const pathArray = req.body.deleteFile.split("/")
     fs.rm(`${req.body.deleteFile}`, { recursive: true }, (err) => {
         if (err) {
@@ -46,7 +47,7 @@ foldersFilesRouter.post("/files/delete", async (req, res, next) => {
     res.redirect("/");
 })
 
-foldersFilesRouter.post("/files/download", async (req, res, next) => {
+foldersFilesRouter.post("/files/download", authenticateUser, async (req, res, next) => {
     res.download(`${req.body.downloadFile}`, (err) => {
         if (err) {
             console.error(err);
@@ -54,7 +55,7 @@ foldersFilesRouter.post("/files/download", async (req, res, next) => {
     });
 })
 
-foldersFilesRouter.post("/files/share", async (req, res, next) => {
+foldersFilesRouter.post("/files/share", authenticateUser, async (req, res, next) => {
     const pathArray = req.body.shareFile.split("/")
     bcrypt.hash(pathArray[3], 3, async (err, hashedName) => {
         if (err) {
@@ -66,7 +67,7 @@ foldersFilesRouter.post("/files/share", async (req, res, next) => {
         } catch (err) {
             return next(err)
         }
-        res.redirect("/");
+        res.redirect(`/folders-files/files/${pathArray[3]}`);
     });
 })
 
@@ -101,7 +102,7 @@ foldersFilesRouter.get("/folders", authenticateUser, async (req, res, next) => {
     res.render("folders", { user: req.user, folders: folders});
 })
 
-foldersFilesRouter.post("/add-folder", async (req, res, next) => {
+foldersFilesRouter.post("/add-folder", authenticateUser, async (req, res, next) => {
     fs.mkdir(`./users/${req.user.id}/${req.body.newFolder.trim()}`, { recursive: true}, (err) => {
         if (err) {
             console.error(err);
@@ -111,7 +112,7 @@ foldersFilesRouter.post("/add-folder", async (req, res, next) => {
     res.redirect("/");
 });
 
-foldersFilesRouter.post("/update-folder", async (req, res, next) => {
+foldersFilesRouter.post("/update-folder", authenticateUser, async (req, res, next) => {
     fs.rename(`users/${req.user.id}/${req.body.oldFolderName.trim()}`, `users/${req.user.id}/${req.body.newFolderName.trim()}`, (err) => {
         if (err) {
             console.error(err)
@@ -121,7 +122,7 @@ foldersFilesRouter.post("/update-folder", async (req, res, next) => {
     res.redirect("/folders-files/folders");
 })
 
-foldersFilesRouter.post("/delete-folder", async (req, res, next) => {
+foldersFilesRouter.post("/delete-folder", authenticateUser, async (req, res, next) => {
     fs.rm(`users/${req.user.id}/${req.body.deleteFolder}`, { recursive: true }, (err) => {
         if (err) {
             console.error(err)

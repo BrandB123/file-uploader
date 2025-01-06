@@ -74,6 +74,14 @@ app.use(function (req, res, next) {
 
 app.set("view engine", "ejs");
 app.use(express.static('public'));
+app.use('/users/:userId', express.static('users'), (req, res, next) => {
+  if (req.params.userId != req.user.id){
+    return res.send("Access Denied")
+  } else {
+    return next()
+  }
+})
+app.use('/users', express.static('users'));
 
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);

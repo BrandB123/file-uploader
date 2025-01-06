@@ -8,29 +8,130 @@
 </head>
 <body>
     <%- include("navbar", { user: user }); %>
-    <p><%= file.name%></p>
-    <p><%= file.date_added%></p>
-    <% if (file.share_id) { %> 
-        <p><a href="/folders-files/shared/<%=user.id%>/<%=file.share_id%>" target="_blank">Shareable Link</a></p>
-    <%}%>
+    <div class="file-page-container">
 
-    <form action="/folders-files/files/download" method="post">
-        <input type="text" name="downloadFile" value="<%= file.path %>" 
-               style="visibility: hidden;" />
-        <button type="submit">Download</button>
-    </form>
+        <div class="file-info-container">
+            <div class="file-name-info">
+                <h3>File Name:</h3>
+                <p><%= file.name%></p>
+            </div>
 
-    <form action="/folders-files/files/share" method="post">
-        <input type="text" name="shareFile" value="<%= file.path %>" 
-               style="visibility: hidden;" />
-        <input type="date" name="shareExp" required/>
-        <button type="submit">Share</button>
-    </form>
+            <div class="file-date-info">
+                <h3>Upload Date:</h3>
+                <p class="upload-date"><%= file.date_added %></p>
+            </div>
 
-    <form action="/folders-files/files/delete" method="post">
-        <input type="text" name="deleteFile" value="<%= file.path %>" 
-               style="visibility: hidden;" />
-        <button type="submit">Delete</button>
-    </form>
+            <% if (file.share_id) { %>
+                <p class="file-share-link">
+                    <a 
+                        href="/folders-files/shared/<%=user.id%>/<%=file.share_id%>" 
+                        target="_blank"
+                    >
+                        Shareable Link
+                    </a>
+                </p>
+            <%}%>
+        </div>
+
+        <iframe
+            src="../../<%= file.path %>"
+            class="file-preview"
+        >
+        </iframe>
+
+        <div class="file-form-button-container">
+
+            <form 
+                action="/folders-files/files/download" 
+                method="post"
+                class="file-download-form"
+            >
+                <input 
+                    type="text" 
+                    name="downloadFile" 
+                    value="<%= file.path %>"
+                    style="visibility: hidden;" 
+                />
+
+                <button 
+                    type="submit"
+                    class="file-download-form-button"
+                >
+                    Download
+                </button>
+            </form>
+
+            <div class="open-share-form-button-container">
+                <button
+                    type="button"
+                    class="file-open-share-form-button"
+                >
+                    Share
+                </button>
+            </div>
+
+            <form 
+                action="/folders-files/files/delete" 
+                method="post"
+                class="file-delete-form"
+            >
+                <input 
+                    type="text" 
+                    name="deleteFile" 
+                    value="<%= file.path %>"
+                    style="visibility: hidden;"
+                />
+
+                <button 
+                    type="submit"
+                    class="file-delete-form-button"
+                >
+                    Delete
+                </button>
+
+            </form>
+        </div>
+
+
+        <form 
+            action="/folders-files/files/share" 
+            method="post"
+            class="file-share-form"
+        >
+            <input 
+                type="text" 
+                name="shareFile"
+                id="hidden-share-input"
+                value="<%= file.path %>"
+                style="visibility: hidden;" 
+            />
+
+            <label 
+                for="file-share-expiration"
+                id="share-label">
+                Please select a date to share this file until:
+            </label>
+
+            <input 
+                type="date" 
+                id="file-share-expiration"
+                name="shareExp" 
+                required
+            />
+
+            <button 
+                type="submit"
+                id="share-submit-button"
+            >
+                Submit
+            </button>
+
+            <button type="reset" id="close-share-form-button">
+                x
+            </button>
+        </form>
+    </div>
+
+    <script src="/js/file.js"></script>
 </body>
 </html>
