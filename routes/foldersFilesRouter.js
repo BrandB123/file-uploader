@@ -32,7 +32,6 @@ foldersFilesRouter.post("/upload-file",
 
 foldersFilesRouter.get("/files/:fileName", authenticateUser, async (req, res, next) => {
     const file = await db.getFile(req.params.fileName, req.user.id);
-    console.log(file);
     res.render("file", { user:req.user, file: file[0]});
 })
 
@@ -73,7 +72,7 @@ foldersFilesRouter.post("/files/share", authenticateUser, async (req, res, next)
 
 
 foldersFilesRouter.get("/shared/:userId/:sharedId", async (req, res, next) => {
-    const file = await db.getSharedFile(req.params.sharedId, req.params.userId)
+    const file = await db.getSharedFile(req.params.sharedId, req.params.userId)    
     const today = new Date();
     let expiration;
     if (file[0]){

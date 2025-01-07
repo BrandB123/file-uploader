@@ -1,21 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <title>File Details</title>
 </head>
-<body>
-    <h2>FileUpload</h2>
-    <a href="/sign-up">Create Account</a>
-    <p><%= file.name%></p>
-    <p><%= file.date_added%></p>
 
-    <form action="/folders-files/shared/download" method="post">
-        <input type="text" name="downloadSharedFile" value="<%= file.path %>" 
-               style="visibility: hidden;" />
-        <button type="submit">Download</button>
-    </form>
+<body>
+    <div class="shared-navbar">
+        <h2 id="logo">FileUpload</h2>
+        <a href="/sign-up" class="nav-links">Create Account</a>
+    </div>
+
+    <div class="file-page-container">
+
+        <div class="shared-file-info-container">
+            <div class="shared-file-name-info">
+                <h3>File Name:</h3>
+                <p><%= file.name%></p>
+            </div>
+
+            <div class="shared-file-date-info">
+                <h3>Upload Date:</h3>
+                <p class="shared-upload-date"><%= file.date_added %></p>
+            </div>
+        </div>
+
+        <iframe
+            src="../../../<%= file.path %>"
+            class="file-preview"
+        >
+        </iframe>
+
+        <div class="shared-file-form-button-container">
+            <form
+                action="/folders-files/shared/download"
+                method="post"
+                class="shared-file-download-form"
+            >
+                <input
+                    type="text"
+                    name="downloadSharedFile"
+                    value="<%= file.path %>"
+                    style="visibility: hidden;"
+                />
+                <button
+                    type="submit"
+                    class="shared-file-download-form-button"
+                >
+                    Download
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="/js/sharedFile.js"></script>
 </body>
+
 </html>

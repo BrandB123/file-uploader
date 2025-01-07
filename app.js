@@ -4,7 +4,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
-const pool = require('./db/pool')
+const pool = require('./db/pool');
 const indexRouter = require('./routes/indexRouter');
 const signUpRouter = require('./routes/signUpRouter')
 const foldersFilesRouter = require('./routes/foldersFilesRouter')
@@ -74,13 +74,6 @@ app.use(function (req, res, next) {
 
 app.set("view engine", "ejs");
 app.use(express.static('public'));
-app.use('/users/:userId', express.static('users'), (req, res, next) => {
-  if (req.params.userId != req.user.id){
-    return res.send("Access Denied")
-  } else {
-    return next()
-  }
-})
 app.use('/users', express.static('users'));
 
 app.use("/", indexRouter);
