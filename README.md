@@ -8,4 +8,4 @@ This is an express app that allows users to store and share files. This project 
  - Authentication using Passport JS
  - Password hashing with bcryptJS
 
- - This app is running live here: respectful-inspiration-production.up.railway.app
+ - This app is running live here: https://respectful-inspiration-production.up.railway.app/
